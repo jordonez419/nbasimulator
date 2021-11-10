@@ -4,7 +4,20 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "server": "nodemon index.js",
+    "migrate": "knex migrate:latest",
+    "rollback": "knex migrate:rollback",
+    "seed": "knex seed:run",
+    "migrateh": "heroku run knex migrate:latest -a nbasimulator",
+    "rollbackh": "heroku run knex migrate:rollback -a nbasimulator",
+    "databaseh": "heroku pg:psql -a nbasimulator",
+    "seedh": "heroku run knex seed:run -a nbasimulator",
+    "test": "cross-env NODE_ENV=testing jest --verbose --runInBand",
+    "deploy": "git push heroku main"
+  },
+  "engines": {
+    "node": "16.13.0"
   },
   "keywords": [],
   "author": "",

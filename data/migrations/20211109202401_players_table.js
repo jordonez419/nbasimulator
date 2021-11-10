@@ -1,6 +1,10 @@
 
 exports.up = function (knex) {
     return knex.schema
+        .createTable('squads', tbl => {
+            tbl.increments('squad_id')
+            tbl.string('squad_name').notNullable().unique()
+        })
         .createTable('players', tbl => {
             tbl.increments('player_id')
             tbl.integer('rating').notNullable().unsigned()
@@ -16,10 +20,6 @@ exports.up = function (knex) {
                 .references('squad_id')
                 .inTable('squads')
                 .onDelete('CASCADE')
-        })
-        .createTable('squads', tbl => {
-            tbl.increments('squad_id')
-            tbl.string('squad_name').notNullable().unique()
         })
         .createTable('users', tbl => {
             tbl.increments('user_id')
@@ -38,6 +38,6 @@ exports.up = function (knex) {
 exports.down = function (knex) {
     return knex.schema
         .dropTableIfExists('users')
-        .dropTableIfExists('squads')
         .dropTableIfExists('players')
+        .dropTableIfExists('squads')
 };
