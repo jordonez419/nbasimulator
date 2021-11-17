@@ -6,6 +6,7 @@ exports.seed = async function (knex) {
   //   { role_name: 'student' },
   //   { role_name: 'instructor' },
   // ])
+  await knex('players').truncate()
   await knex('players').insert([
     {
       player_name: 'Lebron James',
@@ -225,7 +226,7 @@ exports.seed = async function (knex) {
     },
     {
       player_name: 'Joel Embiid',
-      position: 'Shooting Guard',
+      position: 'Center',
       height: '7 feet',
       ppg: 21.4,
       apg: 4.0,
