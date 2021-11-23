@@ -14,6 +14,7 @@ exports.up = function (knex) {
             tbl.decimal('ppg').notNullable().unsigned()
             tbl.decimal('apg').notNullable().unsigned()
             tbl.decimal('rpg').notNullable().unsigned()
+            tbl.string('image')
             tbl.integer('squad_id')
                 .unsigned()
                 // .notNullable()
