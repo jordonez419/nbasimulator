@@ -14,6 +14,19 @@ router.get('/', (req, res) => {
         })
 })
 
+router.get('/search/:term', (req, res) => {
+    const { name } = req.params
+    // console.log(typeof (name))
+    // console.log(`getting player by term: ${name}`)
+    Player.getByName(name)
+        .then(response => {
+            res.status(200).json(response)
+        })
+        .catch(err => {
+            res.status(400).json({ message: err.message })
+        })
+})
+
 router.get('/:id', (req, res) => {
     console.log('getting player by id')
     const { id } = req.params
@@ -25,6 +38,7 @@ router.get('/:id', (req, res) => {
             res.status(400).json({ message: err.message })
         })
 })
+
 
 
 
