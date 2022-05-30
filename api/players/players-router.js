@@ -2,8 +2,9 @@ const express = require('express');
 // const server = require('../server');
 const router = express.Router();
 const Player = require('./players-model')
+const { restricted } = require('../middleware/auth-middleware')
 
-router.get('/', (req, res) => {
+router.get('/', restricted, (req, res) => {
     console.log('getting all players')
     Player.getAll()
         .then(response => {
