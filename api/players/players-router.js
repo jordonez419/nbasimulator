@@ -4,7 +4,17 @@ const router = express.Router();
 const Player = require('./players-model')
 const { restricted } = require('../middleware/auth-middleware')
 
-router.get('/', restricted, (req, res) => {
+// router.get('/', restricted, (req, res) => {
+//     console.log('getting all players')
+//     Player.getAll()
+//         .then(response => {
+//             res.status(200).json(response)
+//         })
+//         .catch(err => {
+//             res.status(400).json({ message: err.message })
+//         })
+// })
+router.get('/', (req, res) => {
     console.log('getting all players')
     Player.getAll()
         .then(response => {
