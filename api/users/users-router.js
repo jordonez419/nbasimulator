@@ -2,6 +2,8 @@ const express = require('express');
 // const server = require('../server');
 const router = express.Router();
 const User = require('./users-model')
+const bodyParse = require('body-parser')
+const cookieParser = require('cookie-parser')
 const bcrypt = require('bcryptjs');
 const saltRounds = 10;
 const { restricted, checkUsernameExists } = require('../middleware/auth-middleware')
@@ -21,6 +23,7 @@ router.get('/logout', (req, res) => {
     console.log('auth log out route')
     if (req.session) {
         req.session.destroy(err => {
+            localStorage.removeItem('loggedIn')
             if (err) {
                 res.json(`Can't log out:${err.message}`)
             } else {
@@ -50,6 +53,14 @@ router.post('/register', (req, res) => {
         })
 })
 
+router.get('/login', (req, res) => {
+    if (req.session.user) {
+        res.send({ isLoggedIn: true })
+    } else {
+        res.send({ isLoggedIn: false })
+    }
+})
+
 router.post('/login', checkUsernameExists, (req, res) => {
     // console.log('login post route')
     console.log('inputted password:', req.body.password)
@@ -57,6 +68,7 @@ router.post('/login', checkUsernameExists, (req, res) => {
     try {
         const verified = bcrypt.compareSync(req.body.password, req.userData.password)
         if (verified) {
+            localStorage.setItem("loggedIn", "true")
             req.session.user = req.userData
             res.status(200).json({ message: `Welcome ${req.userData.user_name}` })
             // res.json(`Welcome back ${req.userData.username}`)
