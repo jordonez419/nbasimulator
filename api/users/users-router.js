@@ -53,13 +53,6 @@ router.post('/register', (req, res) => {
         })
 })
 
-router.get('/login', (req, res) => {
-    if (req.session.user) {
-        res.send({ isLoggedIn: true })
-    } else {
-        res.send({ isLoggedIn: false })
-    }
-})
 
 router.post('/login', checkUsernameExists, (req, res) => {
     // console.log('login post route')
@@ -80,6 +73,14 @@ router.post('/login', checkUsernameExists, (req, res) => {
         res.status(500).json({ message: "Invalid Credentials" })
     }
 })
+router.get('/login', (req, res) => {
+    if (req.session.user) {
+        res.send({ isLoggedIn: true })
+    } else {
+        res.send({ isLoggedIn: false })
+    }
+})
+
 
 router.get('/:id', (req, res) => {
     console.log('getting user by id')
