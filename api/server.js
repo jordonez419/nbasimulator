@@ -32,22 +32,24 @@ const usersRouter = require('./users/users-router')
 const cors = require("cors");
 const session = require("express-session")
 const KnexSessionStore = require("connect-session-knex")(session)
-const bodyParser = require('body-parser')
-const cookieParser = require('cookie-parser')
+// const bodyParser = require('body-parser')
+// const cookieParser = require('cookie-parser')
 
-// const corsOptions = {
-//     origin: '*',
-//     credentials: true,            //access-control-allow-credentials:true
-//     optionSuccessStatus: 200,
-// }
 
-// Youtube tutorial below
+// Original cors options below
 const corsOptions = {
-    origin: ['http://localhost:9000'],
-    methods: ['GET', 'POST'],
+    origin: '*',
     credentials: true,            //access-control-allow-credentials:true
     optionSuccessStatus: 200,
 }
+
+// Youtube tutorial below
+// const corsOptions = {
+//     origin: ['http://localhost:9000'],
+//     methods: ['GET', 'POST'],
+//     credentials: true,            //access-control-allow-credentials:true
+//     optionSuccessStatus: 200,
+// }
 
 const config = {
     name: "chocolatechip",
@@ -68,9 +70,8 @@ const config = {
     })
 }
 
-server.use(bodyParser.urlencoded({ extended: true }))
-server.use(bodyParser)
-server.use(cookieParser())
+// server.use(bodyParser.urlencoded({ extended: true }))
+// server.use(cookieParser())
 server.use(helmet());
 server.use(express.json())
 server.use(cors(corsOptions)) // Use this after the variable declaration
