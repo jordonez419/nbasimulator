@@ -61,7 +61,7 @@ router.post('/login', checkUsernameExists, (req, res) => {
     try {
         const verified = bcrypt.compareSync(req.body.password, req.userData.password)
         if (verified) {
-            localStorage.setItem("loggedIn", "true")
+            // localStorage.setItem("loggedIn", "true")
             req.session.user = req.userData
             res.status(200).json({ message: `Welcome ${req.userData.user_name}` })
             // res.json(`Welcome back ${req.userData.username}`)
@@ -73,13 +73,13 @@ router.post('/login', checkUsernameExists, (req, res) => {
         res.status(500).json({ message: "Invalid Credentials" })
     }
 })
-router.get('/login', (req, res) => {
-    if (req.session.user) {
-        res.send({ isLoggedIn: true })
-    } else {
-        res.send({ isLoggedIn: false })
-    }
-})
+// router.get('/login', (req, res) => {
+//     if (req.session.user) {
+//         res.send({ isLoggedIn: true })
+//     } else {
+//         res.send({ isLoggedIn: false })
+//     }
+// })
 
 
 router.get('/:id', (req, res) => {
