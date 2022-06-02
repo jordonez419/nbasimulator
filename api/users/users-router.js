@@ -21,7 +21,6 @@ router.get('/logout', (req, res) => {
     console.log('auth log out route')
     if (req.session) {
         req.session.destroy(err => {
-            localStorage.removeItem('loggedIn')
             if (err) {
                 res.json(`Can't log out:${err.message}`)
             } else {
