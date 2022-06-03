@@ -34,7 +34,7 @@ router.get('/logout', (req, res) => {
 })
 
 
-router.post('/register', checkUserNameValid, (req, res) => {
+router.post('/register', (req, res) => {
     const user_name = req.body.user_name
     const password = req.body.password
     const hash = bcrypt.hashSync(password, saltRounds);
