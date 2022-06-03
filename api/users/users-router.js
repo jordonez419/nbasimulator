@@ -4,7 +4,7 @@ const router = express.Router();
 const User = require('./users-model')
 const bcrypt = require('bcryptjs');
 const saltRounds = 10;
-const { restricted, checkUsernameExists } = require('../middleware/auth-middleware')
+const { restricted, checkUsernameExists, checkUserNameValid } = require('../middleware/auth-middleware')
 
 router.get('/', (req, res) => {
     console.log('getting all users')
@@ -34,7 +34,7 @@ router.get('/logout', (req, res) => {
 })
 
 
-router.post('/register', (req, res) => {
+router.post('/register', checkUserNameValid, (req, res) => {
     const user_name = req.body.user_name
     const password = req.body.password
     const hash = bcrypt.hashSync(password, saltRounds);
@@ -70,13 +70,7 @@ router.post('/login', checkUsernameExists, (req, res) => {
         res.status(500).json({ message: "Invalid Credentials" })
     }
 })
-// router.get('/login', (req, res) => {
-//     if (req.session.user) {
-//         res.send({ isLoggedIn: true })
-//     } else {
-//         res.send({ isLoggedIn: false })
-//     }
-// })
+
 
 
 router.get('/:id', (req, res) => {

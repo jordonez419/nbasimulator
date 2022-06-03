@@ -33,8 +33,23 @@ const checkUsernameExists = async (req, res, next) => {
         res.status(500).json(`Server error: ${e.message}`)
     }
 }
+const checkUserNameValid = async (req, res, next) => {
+    try {
+        const rows = await User.findBy({ user_name: req.body.user_name })
+        if (rows.length) {
+            res.status(401).json("Username Taken")
+        } else {
+            console.log('username doesnt exist')
+            res.status(200).json("Proceed")
+            next()
+        }
+    } catch (e) {
+        res.status(500).json(`Server error: ${e.message}`)
+    }
+}
 
 module.exports = {
     restricted,
-    checkUsernameExists
+    checkUsernameExists,
+    checkUserNameValid
 }
