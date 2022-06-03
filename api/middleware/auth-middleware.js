@@ -37,7 +37,7 @@ const checkUserNameValid = async (req, res, next) => {
     try {
         const rows = await User.findBy({ user_name: req.body.user_name })
         if (rows.length) {
-            res.status(401).json("Username Taken")
+            res.status(401).json({ message: "Username Taken" })
         } else {
             console.log('username doesnt exist')
             res.status(200).json("Proceed")
