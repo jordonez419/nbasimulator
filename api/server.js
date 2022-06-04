@@ -40,7 +40,7 @@ const KnexSessionStore = require("connect-session-knex")(session)
 // INPORTANT: Set origin to '*' for local API use (Postman), set origin to localhost for online use
 const corsOptions = {
     // origin: 'http://localhost:3000',
-    origin: 'https://nbasimv4.vercel.app/',
+    origin: 'https://nbasimv4.vercel.app/users',
     credentials: true,            //access-control-allow-credentials:true
     optionSuccessStatus: 200,
 }
