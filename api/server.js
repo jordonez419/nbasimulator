@@ -38,12 +38,11 @@ const KnexSessionStore = require("connect-session-knex")(session)
 
 // Original cors options below
 // INPORTANT: Set origin to '*' for local API use (Postman), set origin to localhost for online use
-const corsOptions = {
-    // origin: 'http://localhost:3000',
-    origin: 'https://nbasimulator.herokuapp.com/api/users/login',
-    credentials: true,            //access-control-allow-credentials:true
-    optionSuccessStatus: 200,
-}
+// const corsOptions = {
+//     origin: '*',
+//     credentials: true,            //access-control-allow-credentials:true
+//     optionSuccessStatus: 200
+// }
 
 const config = {
     name: "chocolatechip",
@@ -68,7 +67,8 @@ const config = {
 // server.use(cookieParser())
 server.use(helmet());
 server.use(express.json())
-server.use(cors(corsOptions)) // Use this after the variable declaration
+// server.use(cors(corsOptions)) // Use this after the variable declaration
+server.use(cors()) // Use this after the variable declaration
 server.use(session(config));
 server.use('/api/users', usersRouter)
 server.use('/api/players', playersRouter)
